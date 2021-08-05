@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>lesson_1.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+lesson_1.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">requests</span>
+<span class="s0">import </span><span class="s1">json</span>
+
+<span class="s1">url = </span><span class="s2">'https://api.github.com'</span>
+<span class="s1">user = </span><span class="s2">'Zgurskaya'</span>
+<span class="s1">response = requests.get(</span><span class="s2">f'</span><span class="s0">{</span><span class="s1">url</span><span class="s0">}</span><span class="s2">/users/</span><span class="s0">{</span><span class="s1">user</span><span class="s0">}</span><span class="s2">/repos'</span><span class="s1">)</span>
+
+<span class="s0">with </span><span class="s1">open(</span><span class="s2">'file.json'</span><span class="s0">, </span><span class="s2">'w'</span><span class="s1">) </span><span class="s0">as </span><span class="s1">f:</span>
+    <span class="s1">json.dump(response.json()</span><span class="s0">, </span><span class="s1">f)</span>
+
+<span class="s0">for </span><span class="s1">i </span><span class="s0">in </span><span class="s1">response.json():</span>
+    <span class="s1">print(i[</span><span class="s2">'name'</span><span class="s1">])</span>
+</pre>
+</body>
+</html>
