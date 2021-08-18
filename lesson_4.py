@@ -20,22 +20,20 @@ link_lenta_ru = 'https://lenta.ru/'
 response = requests.get(link_lenta_ru, headers=header)
 dom = html.fromstring(response.text)
 
-news = dom.xpath("//div[@class= 'item']//text()")
+news = dom.xpath('''//section[@class="row b-top7-for-main js-top-seven"]//div[contains(@class,'item')]''')
 new_list = []
 for new in news:
     new_data = {}
-    new_title = new.xpath("""//section[@class="row b-top7-for-main js-top-seven"]//div[@class='first-item']/h2 | 
-                                //section[@class="row b-top7-for-main js-top-seven"]//div[@class='item'])
-                                /a/text()""")
-    new_link = new.xpath('''//section[@class="row b-top7-for-main js-top-seven"]//div[@class="first-item"]/h2 | 
-                                //section[@class="row b-top7-for-main js-top-seven"]//div[@class="item"])
-                                /a/@href''')
-    new_time = new.xpath('''(//time[@class= 'g-time']//text()''')
+    new_title = new.xpath(".//a//text()")
+    new_link = new.xpath(".//a//@href")
+    for i in range(len(new_data)):
+        new_data[i] = new_data[i].replace(u'\xa0', u' ')
 
     new_data['new_title'] = new_title
     new_data['new_link'] = new_link
-    new_data['new_time'] = new_time
+
 
     new_list.append(new_data)
 
 pprint(new_list)
+
